@@ -1,36 +1,32 @@
 <template>
-	<div class="register">
-		<template>
-			<div class="login-wrap">
-				<el-form class="login-container">
-					<h1 class="title">学长工具库注册</h1>
-					<el-form-item label="">
-						<el-input
-							type="text"
-							v-model="username"
-							placeholder="注册账号"
-							autocomplete="off"
-						></el-input>
-					</el-form-item>
-					<el-form-item label="">
-						<el-input
-							type="password"
-							v-model="password"
-							placeholder="注册密码"
-							autocomplete="off"
-						></el-input>
-					</el-form-item>
-					<el-form-item>
-						<el-button type="primary" style="width: 100%" @click="doSubmit()"
-							>提交</el-button
-						>
-					</el-form-item>
-					<el-row style="text-align: center; margin-top: -10px">
-						<el-link type="primary" @click="gotoLogin()">用户登陆</el-link>
-					</el-row>
-				</el-form>
-			</div>
-		</template>
+	<div class="login-wrap">
+		<el-form class="login-container">
+			<h1 class="title">Register</h1>
+			<el-form-item label="">
+				<el-input
+					type="text"
+					v-model="username"
+					placeholder="User Name"
+					autocomplete="off"
+				></el-input>
+			</el-form-item>
+			<el-form-item label="">
+				<el-input
+					type="password"
+					v-model="password"
+					placeholder="Password"
+					autocomplete="off"
+				></el-input>
+			</el-form-item>
+			<el-form-item>
+				<el-button type="primary" style="width: 100%" @click="doSubmit()"
+					>Submit</el-button
+				>
+			</el-form-item>
+			<el-row style="text-align: center; margin-top: -10px">
+				<el-link type="primary" @click="gotoLogin()">Login</el-link>
+			</el-row>
+		</el-form>
 	</div>
 </template>
 <script>
@@ -46,12 +42,10 @@ export default {
 	},
 	methods: {
 		gotoLogin() {
-			// 跳转登陆页面
 			this.$router.push("/login");
 		},
 		doSubmit() {
-			let url = "http://localhost:8888/server/userRegister";
-			//获取数据
+			let url = "http://localhost:5000/api/register";
 			let params = {
 				username: this.username,
 				password: this.password,

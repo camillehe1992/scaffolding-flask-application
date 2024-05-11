@@ -1,13 +1,12 @@
 <template>
 	<div class="login-wrap">
-		Login
-		<!-- <el-form class="login-container">
-			<h1 class="title">学长工具库登录</h1>
+		<el-form class="login-container">
+			<h1 class="title">Login</h1>
 			<el-form-item label="">
 				<el-input
 					type="text"
 					v-model="username"
-					placeholder="登录账号"
+					placeholder="User Name"
 					autocomplete="off"
 				></el-input>
 			</el-form-item>
@@ -15,19 +14,19 @@
 				<el-input
 					type="password"
 					v-model="password"
-					placeholder="登录密码"
+					placeholder="Password"
 					autocomplete="off"
 				></el-input>
 			</el-form-item>
 			<el-form-item>
 				<el-button type="primary" style="width: 100%" @click="doSubmit()"
-					>提交</el-button
+					>Submit</el-button
 				>
 			</el-form-item>
 			<el-row style="text-align: center; margin-top: -10px">
-				<el-link type="primary" @click="gotoRegister()">用户注册</el-link>
+				<el-link type="primary" @click="gotoRegister()">Register</el-link>
 			</el-row>
-		</el-form> -->
+		</el-form>
 	</div>
 </template>
 <script>
@@ -43,11 +42,10 @@ export default {
 	},
 	methods: {
 		gotoRegister() {
-			// 跳转注册页面
 			this.$router.push("/register");
 		},
 		doSubmit() {
-			let url = "http://localhost:8888/server/userLogin";
+			let url = "http://localhost:5000/api/login";
 			let params = {
 				username: this.username,
 				password: this.password,
