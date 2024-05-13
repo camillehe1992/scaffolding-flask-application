@@ -11,11 +11,13 @@
 
         <v-text-field
           v-model="email"
+          :readonly="loading"
+          :rules="[required]"
           density="compact"
           placeholder="Email address"
           prepend-inner-icon="mdi-email-outline"
           variant="outlined"
-          required
+          clearable
         ></v-text-field>
 
         <div
@@ -35,6 +37,8 @@
 
         <v-text-field
           v-model="password"
+          :readonly="loading"
+          :rules="[required]"
           :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
           :type="visible ? 'text' : 'password'"
           density="compact"
@@ -42,28 +46,24 @@
           prepend-inner-icon="mdi-lock-outline"
           variant="outlined"
           @click:append-inner="visible = !visible"
-          required
+          clearable
         ></v-text-field>
 
-        <v-card class="mb-12" color="surface-variant" variant="tonal">
-          <v-card-text class="text-medium-emphasis text-caption">
-            Warning: After 3 consecutive failed login attempts, you account will
-            be temporarily locked for three hours. If you must login now, you
-            can also click "Forgot login password?" below to reset the login
-            password.
-          </v-card-text>
-        </v-card>
-
-        <v-btn class="mb-8" color="blue" size="large" variant="tonal" block>
+        <v-btn
+          :disabled="!form"
+          :loading="loading"
+          type="submit"
+          class="mb-8"
+          color="blue"
+          size="large"
+          variant="tonal"
+          block
+        >
           Log In
         </v-btn>
 
         <v-card-text class="text-center">
-          <a
-            class="text-blue text-decoration-none"
-            href="/register"
-            rel="noopener noreferrer"
-          >
+          <a class="text-blue text-decoration-none" href="/register">
             Sign up now <v-icon icon="mdi-chevron-right"></v-icon>
           </a>
         </v-card-text>
@@ -73,17 +73,50 @@
 </template>
 
 <script setup>
+import axios from "axios";
 import { ref } from "vue";
 const visible = ref(false);
 
-const form = ref();
-const email = ref();
-const password = ref();
+const form = ref(null);
+const email = ref(null);
+const password = ref(null);
 const loading = ref(false);
+const message = ref(null);
 
 const onSubmit = () => {
-  if (!form) return;
-  loading = tr;
-  setTimeout(() => (loading = false), 2000);
+  if (!form.value) return;
+  loading.value = true;
+
+  const url = "http://localhost:5000/api/login";
+  const params = {
+    email: email.value,
+    password: password.value,
+  };
+
+  axios
+    .post(url, params)
+    .then((r) => {
+      console.log(r);
+      if (r.data.success) {
+        message.value = {
+          message: r.data.msg,
+          type: "success",
+        };
+      } else {
+        message.value({
+          message: r.data.msg,
+          type: "failed",
+        });
+      }
+    })
+    .catch((e) => {
+      console.log(e);
+    });
+  loading.value = false;
+  console.log(message);
+};
+
+const required = (v) => {
+  return !!v || "Field is required";
 };
 </script>
