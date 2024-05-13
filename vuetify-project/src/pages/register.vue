@@ -98,15 +98,15 @@ const onSubmit = () => {
   store
     .dispatch("user/register", params)
     .then((res) => {
-      if (res.data.success) {
+      if (res.success) {
         status.value = {
-          message: r.data.msg,
+          message: res.msg,
           type: "succeed",
         };
         router.push({ name: "/" });
       } else {
         status.value = {
-          message: r.data.msg,
+          message: res.msg,
           type: "failed",
         };
       }

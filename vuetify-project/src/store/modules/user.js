@@ -12,30 +12,34 @@ const getters = {};
 
 // actions
 const actions = {
-  async login({ commit, payload }) {
+  async login({ commit }, payload) {
     try {
       const res = await axios.post(`${url}/login`, payload);
-      if (res.data.success) {
+      if (res.status == 200 && res.data?.success) {
         commit("setIsLogin", true);
         commit("setCurrentUser", res.data?.user);
+        localStorage.setItem("isLogin", "true");
       } else {
         commit("setIsLogin", false);
         commit("setCurrentUser", null);
+        localStorage.removeItem("isLogin");
       }
       return res.data;
     } catch (error) {
       console.log(error);
     }
   },
-  async register({ commit, payload }) {
+  async register({ commit }, payload) {
     try {
       const res = await axios.post(`${url}/register`, payload);
-      if (res.data.success) {
+      if (res.status == 200 && res.data?.success) {
         commit("setIsLogin", true);
         commit("setCurrentUser", res.data?.user);
+        localStorage.setItem("isLogin", "true");
       } else {
         commit("setIsLogin", false);
         commit("setCurrentUser", null);
+        localStorage.removeItem("isLogin");
       }
       return res.data;
     } catch (error) {

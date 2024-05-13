@@ -4,13 +4,9 @@
 </template>
 
 <script setup>
-import { computed } from "vue";
-import { useStore } from "vuex/types/index.js";
 import login from "./login.vue";
 
-const store = useStore();
-
-const isLogin = computed(() => store.state.user.isLogin);
+const isLogin = Boolean(localStorage.getItem("isLogin") ?? "false");
 
 //
 </script>

@@ -6,14 +6,14 @@
 
 // Composables
 import { createRouter, createWebHistory } from "vue-router/auto";
-const isAuthenticated = false;
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
 });
 
 router.beforeEach((to, from, next) => {
-  if (to.name !== "/login" && to.name !== "/register" && !isAuthenticated)
+  const isLogin = Boolean(localStorage.getItem("isLogin") ?? "false");
+  if (to.name !== "/login" && to.name !== "/register" && !isLogin)
     next({ name: "/login" });
   else next();
 });
