@@ -71,9 +71,9 @@
 </template>
 
 <script setup>
-import axios from "axios";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import { useStore } from "vuex";
 const visible = ref(false);
 
 const form = ref(null);
@@ -83,28 +83,27 @@ const loading = ref(false);
 const status = ref(null);
 
 const router = useRouter();
+const store = useStore();
 
 const onSubmit = () => {
   if (!form.value) return;
   loading.value = true;
 
-  const url = "http://localhost:5000/api/register";
   const params = {
     username: email.value,
     email: email.value,
     password: password.value,
   };
 
-  axios
-    .post(url, params)
-    .then((r) => {
-      console.log(r.data);
-      if (r.data.success) {
+  store
+    .dispatch("user/register", params)
+    .then((res) => {
+      if (res.data.success) {
         status.value = {
           message: r.data.msg,
           type: "succeed",
         };
-        router.push("/login");
+        router.push({ name: "/" });
       } else {
         status.value = {
           message: r.data.msg,

@@ -4,10 +4,13 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { computed } from "vue";
+import { useStore } from "vuex/types/index.js";
 import login from "./login.vue";
 
-const isLogin = ref(false);
+const store = useStore();
+
+const isLogin = computed(() => store.state.user.isLogin);
 
 //
 </script>

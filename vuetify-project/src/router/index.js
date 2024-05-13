@@ -12,10 +12,9 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
 });
 
-console.log(router.getRoutes());
-
 router.beforeEach((to, from, next) => {
-  if (to.name !== "/login" && !isAuthenticated) next({ name: "/login" });
+  if (to.name !== "/login" && to.name !== "/register" && !isAuthenticated)
+    next({ name: "/login" });
   else next();
 });
 
