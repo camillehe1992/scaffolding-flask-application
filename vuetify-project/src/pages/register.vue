@@ -40,9 +40,17 @@
           clearable
         ></v-text-field>
 
+        <div
+          v-if="status?.type == 'failed'"
+          class="pb-2 text-red text-caption text-decoration-none"
+        >
+          {{ status?.message }}
+        </div>
+
         <v-btn
           :disabled="!form"
           :loading="loading"
+          type="submit"
           class="mb-8"
           color="blue"
           size="large"
@@ -65,19 +73,22 @@
 <script setup>
 import axios from "axios";
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 const visible = ref(false);
 
 const form = ref(null);
 const email = ref(null);
 const password = ref(null);
 const loading = ref(false);
-const message = ref(null);
+const status = ref(null);
+
+const router = useRouter();
 
 const onSubmit = () => {
   if (!form.value) return;
   loading.value = true;
 
-  const url = "http://localhost:5000/api/login";
+  const url = "http://localhost:5000/api/register";
   const params = {
     username: email.value,
     email: email.value,
@@ -87,23 +98,26 @@ const onSubmit = () => {
   axios
     .post(url, params)
     .then((r) => {
-      console.log(r);
+      console.log(r.data);
       if (r.data.success) {
-        message.value = {
+        status.value = {
           message: r.data.msg,
-          type: "success",
+          type: "succeed",
         };
+        router.push("/login");
       } else {
-        message.value({
+        status.value = {
           message: r.data.msg,
           type: "failed",
-        });
+        };
       }
     })
     .catch((e) => {
       console.log(e);
+    })
+    .finally(() => {
+      loading.value = false;
     });
-  loading.value = false;
 };
 
 const required = (v) => {

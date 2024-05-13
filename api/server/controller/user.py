@@ -37,16 +37,17 @@ def login():
     user_dao.connect()
     # Query user from database
     user_info = user_dao.get_uesr_by_email(email)
-    print(user_info)
 
     # Validate user information
     if user_info and len(user_info) > 0:
-        stored_password = user_info[0][2]
+        stored_password = user_info[0][5]
         if password == stored_password:
             response = {"success": True, "msg": "Login success"}
+            print("Login success")
         else:
             response = {"success": False, "msg": "Invalid password"}
     else:
         response = {"success": False, "msg": "User is not found"}
 
+        print(response)
     return jsonify(response)

@@ -49,6 +49,13 @@
           clearable
         ></v-text-field>
 
+        <div
+          v-if="status?.type == 'failed'"
+          class="pb-2 text-red text-caption text-decoration-none"
+        >
+          {{ status?.message }}
+        </div>
+
         <v-btn
           :disabled="!form"
           :loading="loading"
@@ -75,13 +82,16 @@
 <script setup>
 import axios from "axios";
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 const visible = ref(false);
 
 const form = ref(null);
 const email = ref(null);
 const password = ref(null);
 const loading = ref(false);
-const message = ref(null);
+const status = ref(null);
+
+const router = useRouter();
 
 const onSubmit = () => {
   if (!form.value) return;
@@ -96,24 +106,25 @@ const onSubmit = () => {
   axios
     .post(url, params)
     .then((r) => {
-      console.log(r);
       if (r.data.success) {
-        message.value = {
+        status.value = {
           message: r.data.msg,
-          type: "success",
+          type: "succeed",
         };
+        router.push({ name: "/" });
       } else {
-        message.value({
+        status.value = {
           message: r.data.msg,
           type: "failed",
-        });
+        };
       }
     })
     .catch((e) => {
       console.log(e);
+    })
+    .finally(() => {
+      loading.value = false;
     });
-  loading.value = false;
-  console.log(message);
 };
 
 const required = (v) => {
