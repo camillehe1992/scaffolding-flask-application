@@ -37,9 +37,9 @@ class UserDao:
             print(f"执行查询时发生错误: {e}")
             raise e
 
-    def insert(self, username, password):
-        query = "INSERT INTO user (username, password) VALUES (%s, %s)"
-        values = (username, password)
+    def insert(self, username, email, password):
+        query = "INSERT INTO user (username, email, password) VALUES (%s, %s, %s)"
+        values = (username, email, password)
         self.execute_query(query, values)
 
     def update(self, user_id, username, password):
@@ -64,4 +64,9 @@ class UserDao:
     def get_user_by_username(self, username):
         query = "SELECT * FROM user WHERE username = %s"
         values = (username,)
+        return self.execute_query(query, values)
+
+    def get_uesr_by_email(self, email):
+        query = "SELECT * FROM user WHERE email = %s"
+        values = (email,)
         return self.execute_query(query, values)
