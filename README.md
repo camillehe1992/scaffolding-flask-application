@@ -1,29 +1,30 @@
 # Build a Login Application using Vue3 & Python Flask
 
-Build a login and register application using Vue 3, and Flask. The frontend and backend can interact with each other via API requests/responses.
+Build a login and register application using Vue 3, and Flask mainly. The frontend and backend can interact with each other via API requests/responses. Use MySQL database to save test user information.
 
-## Environment & Technical Stacks
+## Prerequisites Environment
 
-### Local Development Environment
+Here is the PC environment setup in order to setup the project locally.
 
-| Packages/OS | Version          |
-| ----------- | ---------------- |
-| PC          | MacBook Air (M2) |
-| macOS       | 14.1 (23B74)     |
-| Node        | v18.18.2         |
-| NPM         | 9.8.1            |
-| Python      | Python 3.11.9    |
-| Pip         | pip 23.2.1       |
-| [Pipenv][1] | 2023.6.12        |
+| Packages/OS | Version          | Usage                                                  |
+| ----------- | ---------------- | ------------------------------------------------------ |
+| PC          | MacBook Air (M2) | -                                                      |
+| macOS       | 14.1 (23B74)     | -                                                      |
+| Docker      | 24.0.5           | Used to setup a `mysql` container for data persistance |
+| Node        | v18.18.2         | Used for frontend                                      |
+| NPM         | 9.8.1            | NPM package manager                                    |
+| Python      | Python 3.11.9    | User for backend                                       |
+| Pip         | pip 23.2.1       | Python package installer                               |
+| [Pipenv][1] | 2023.6.12        | Python package management tool                         |
 
-## Technical Stacks
+Below table shows the main frameworks/tools used in the project.
 
-| Technical Skill     | Tool               | Link                                          |
-| ------------------- | ------------------ | --------------------------------------------- |
-| Frontend Framework  | Vue 3.4.21         | <https://vuejs.org/guide/introduction.html>   |
-| Frontend Build Tool | Vite 5.2.0         | <https://vitejs.dev/guide/>                   |
-| Frontend UI         | Element Plus 2.7.2 | <https://element-plus.org/en-US/>             |
-| Backend Framework   | Flask 3.0          | <https://flask.palletsprojects.com/en/3.0.x/> |
+| Technical Stacks    | Tool/Framework | Link                                                                  |
+| ------------------- | -------------- | --------------------------------------------------------------------- |
+| Frontend Framework  | Vue 3.4.21     | <https://vuejs.org/guide/introduction.html>                           |
+| Frontend Build Tool | Vite 5.2.0     | <https://vitejs.dev/guide/>                                           |
+| Frontend UI         | Vuetify 3      | <https://vuetifyjs.com/en/getting-started/installation/#installation> |
+| Backend Framework   | Flask 3.0      | <https://flask.palletsprojects.com/en/3.0.x/>                         |
 
 ## Get Started
 

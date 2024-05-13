@@ -1,0 +1,28 @@
+{
+	"table": "user",
+	"mockStartIndex": "auto",
+	"mockCount": 5,
+	"mockValueReference": "http://mockjs.com/examples.html#DPD",
+	"mock": {
+		"create_time": {
+			"type": "datetime",
+			"value": "@now('yyyy-MM-dd HH:mm:ss')"
+		},
+		"update_time": {
+			"type": "datetime",
+			"value": "@now('yyyy-MM-dd HH:mm:ss')"
+		},
+		"username": {
+			"type": "varchar",
+			"value": "@name"
+		},
+		"email": {
+			"type": "varchar",
+			"value": "@email"
+		},
+		"password": {
+			"type": "varchar",
+			"value": "@string(7, 10)"
+		}
+	}
+}

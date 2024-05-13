@@ -1,5 +1,6 @@
 <template>
-	<div class="login-wrap">
+	Register
+	<!-- <div class="login-wrap">
 		<el-form class="login-container">
 			<h1 class="title">Register</h1>
 			<el-form-item label="">
@@ -27,7 +28,7 @@
 				<el-link type="primary" @click="gotoLogin()">Login</el-link>
 			</el-row>
 		</el-form>
-	</div>
+	</div> -->
 </template>
 <script>
 import axios from "axios";
