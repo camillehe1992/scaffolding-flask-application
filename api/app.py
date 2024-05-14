@@ -5,17 +5,19 @@ from server.controller import user
 app = Flask(__name__)
 CORS(app)  # 在应用中使用 CORS
 
+app.config["SECRET_KEY"] = "Thisisasecret"
+
 
 @app.route("/api/register", methods=["POST"])
 def user_register():
-    return user.register()
+    return user.signup()
 
 
 # 定义用户登录接口
 # 用户登录接口
 @app.route("/api/login", methods=["POST"])
 def user_login():
-    return user.login()
+    return user.login(app)
 
 
 if __name__ == "__main__":

@@ -31,15 +31,15 @@ class UserDao:
                 cursor.execute(query)
             result = cursor.fetchall()
             self.connection.commit()
-            print("执行的SQL语句:", cursor.statement)  # 打印SQL语句
+            print("Executed SQL: ", cursor.statement)
             return result
         except mysql.connector.Error as e:
-            print(f"执行查询时发生错误: {e}")
+            print(f"Error: {e}")
             raise e
 
-    def insert(self, username, email, password):
-        query = "INSERT INTO user (username, email, password) VALUES (%s, %s, %s)"
-        values = (username, email, password)
+    def insert(self, user_id, username, email, password):
+        query = "INSERT INTO user (user_id, username, email, password) VALUES (%s, %s, %s, %s)"
+        values = (user_id, username, email, password)
         self.execute_query(query, values)
 
     def update(self, user_id, username, password):
@@ -48,7 +48,7 @@ class UserDao:
         self.execute_query(query, values)
 
     def delete(self, user_id):
-        query = "DELETE FROM user WHERE id = %s"
+        query = "DELETE FROM user WHERE user_id = %s"
         values = (user_id,)
         self.execute_query(query, values)
 
@@ -57,7 +57,7 @@ class UserDao:
         return self.execute_query(query)
 
     def get_user_by_id(self, user_id):
-        query = "SELECT * FROM user WHERE id = %s"
+        query = "SELECT * FROM user WHERE user_id = %s"
         values = (user_id,)
         return self.execute_query(query, values)
 
