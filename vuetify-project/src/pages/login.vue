@@ -50,10 +50,10 @@
         ></v-text-field>
 
         <div
-          v-if="status?.type == 'failed'"
+          v-if="!status?.success"
           class="pb-2 text-red text-caption text-decoration-none"
         >
-          {{ status?.message }}
+          {{ status?.msg }}
         </div>
 
         <v-btn
@@ -94,7 +94,7 @@ const status = ref(null);
 const router = useRouter();
 const store = useStore();
 
-const onSubmit = () => {
+const onSubmit = async () => {
   if (!form.value) return;
   loading.value = true;
 
@@ -103,28 +103,12 @@ const onSubmit = () => {
     password: password.value,
   };
 
-  store
-    .dispatch("user/login", params)
-    .then((res) => {
-      if (res.success) {
-        status.value = {
-          message: res.msg,
-          type: "succeed",
-        };
-        router.push({ name: "/" });
-      } else {
-        status.value = {
-          message: res.msg,
-          type: "failed",
-        };
-      }
-    })
-    .catch((e) => {
-      console.log(e);
-    })
-    .finally(() => {
-      loading.value = false;
-    });
+  const res = await store.dispatch("user/login", params);
+  if (res.success) {
+    router.push({ name: "/" });
+  }
+  status.value = res;
+  loading.value = false;
 };
 
 const required = (v) => {

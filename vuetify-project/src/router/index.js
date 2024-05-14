@@ -13,6 +13,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const isLogin = Boolean(localStorage.getItem("isLogin") ?? "false");
+  console.log(`isLogin ${isLogin}`);
   if (to.name !== "/login" && to.name !== "/register" && !isLogin)
     next({ name: "/login" });
   else next();

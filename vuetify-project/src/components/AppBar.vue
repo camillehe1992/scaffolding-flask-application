@@ -37,14 +37,19 @@
         <v-card-text>
           <div class="mx-auto text-center">
             <v-avatar color="secondary">
-              <span class="text-h5">{{ user?.initials }}</span>
+              <span v-if="user?.initials" class="text-h5">{{
+                user?.initials
+              }}</span>
+              <v-icon v-else icon="mdi-account-circle"></v-icon>
             </v-avatar>
-            <h3>{{ user.username }}</h3>
+            <h3>{{ user?.username }}</h3>
             <p class="text-caption mt-1">
-              {{ user.email }}
+              {{ user?.email }}
             </p>
             <v-divider class="my-3"></v-divider>
-            <v-btn variant="text" rounded> Edit Account </v-btn>
+            <v-btn variant="text" rounded @click="editAccount()">
+              Edit Account
+            </v-btn>
             <v-divider class="my-3"></v-divider>
             <v-btn variant="text" rounded @click="signout()"> Log Out </v-btn>
           </div>
@@ -56,19 +61,23 @@
 
 <script setup>
 import { computed } from "vue";
+import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 
 const store = useStore();
+const router = useRouter();
 
 const isLogin = computed(() => store.state.user.isLogin);
 const user = computed(() => store.state.user.currentUser);
-
-console.log(user.value);
 
 const items = [
   { href: "/login", title: "login", title: "Log In" },
   { href: "/signup", title: "signup", title: "Sign Up" },
 ];
+
+const editAccount = () => {
+  router.push({ name: "/account" });
+};
 
 const signout = () => {
   localStorage.removeItem("isLogin");

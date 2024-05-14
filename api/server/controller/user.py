@@ -84,3 +84,22 @@ def login(app):
 
         print(response)
     return response
+
+
+def get_user(user_id):
+    # Init UserDao
+    user_dao = UserDao(
+        host="127.0.0.1", user="root", password="mysql123", database="demo"
+    )
+    user_dao.connect()
+
+    user_info = user_dao.get_user_by_id(user_id)
+    if user_info and len(user_info) > 0:
+        user = {
+            "user_id": user_info[0][1],
+            "username": user_info[0][2],
+            "email": user_info[0][3],
+            "active": user_info[0][5],
+        }
+        return user
+    return {}

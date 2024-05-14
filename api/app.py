@@ -1,6 +1,7 @@
-from flask import Flask
+from flask import Flask, make_response
 from flask_cors import CORS
 from server.controller import user
+from server.controller.auth import token_required
 
 app = Flask(__name__)
 CORS(app)
@@ -16,6 +17,12 @@ def user_signup():
 @app.route("/api/login", methods=["POST"])
 def user_login():
     return user.login(app)
+
+
+@app.route("/api/users", methods=["GET"])
+@token_required
+def get_user(user):
+    return make_response(user, 200)
 
 
 if __name__ == "__main__":
