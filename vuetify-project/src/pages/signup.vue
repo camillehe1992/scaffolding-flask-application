@@ -57,7 +57,7 @@
           variant="tonal"
           block
         >
-          Register
+          Sign Up
         </v-btn>
 
         <v-card-text class="text-center">
@@ -96,7 +96,7 @@ const onSubmit = () => {
   };
 
   store
-    .dispatch("user/register", params)
+    .dispatch("user/signup", params)
     .then((res) => {
       if (res.success) {
         status.value = {

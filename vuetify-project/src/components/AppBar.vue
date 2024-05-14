@@ -1,0 +1,78 @@
+<template>
+  <v-app-bar image="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg">
+    <template v-slot:image>
+      <v-img
+        gradient="to top right, rgba(19,84,122,.8), rgba(128,208,199,.8)"
+      ></v-img>
+    </template>
+
+    <template v-slot:prepend>
+      <v-app-bar-nav-icon icon="$vuetify" href="/"></v-app-bar-nav-icon>
+    </template>
+
+    <v-app-bar-title>Login Demo Application</v-app-bar-title>
+
+    <v-spacer></v-spacer>
+
+    <a
+      v-for="item in items"
+      :key="item.title"
+      :href="item.href"
+      :title="item.title"
+      class="d-inline-block social-link text-black"
+    >
+      <v-btn>{{ item.title }} </v-btn>
+    </a>
+
+    <v-menu min-width="200px" rounded>
+      <template v-slot:activator="{ props }">
+        <v-btn icon v-bind="props">
+          <v-avatar>
+            <span v-if="user?.initials">{{ user?.initials }}</span>
+            <v-icon v-else icon="mdi-account-circle"></v-icon>
+          </v-avatar>
+        </v-btn>
+      </template>
+      <v-card>
+        <v-card-text>
+          <div class="mx-auto text-center">
+            <v-avatar color="secondary">
+              <span class="text-h5">{{ user?.initials }}</span>
+            </v-avatar>
+            <h3>{{ user.username }}</h3>
+            <p class="text-caption mt-1">
+              {{ user.email }}
+            </p>
+            <v-divider class="my-3"></v-divider>
+            <v-btn variant="text" rounded> Edit Account </v-btn>
+            <v-divider class="my-3"></v-divider>
+            <v-btn variant="text" rounded @click="signout()"> Log Out </v-btn>
+          </div>
+        </v-card-text>
+      </v-card>
+    </v-menu>
+  </v-app-bar>
+</template>
+
+<script setup>
+import { computed } from "vue";
+import { useStore } from "vuex";
+
+const store = useStore();
+
+const isLogin = computed(() => store.state.user.isLogin);
+const user = computed(() => store.state.user.currentUser);
+
+console.log(user.value);
+
+const items = [
+  { href: "/login", title: "login", title: "Log In" },
+  { href: "/signup", title: "signup", title: "Sign Up" },
+];
+
+const signout = () => {
+  localStorage.removeItem("isLogin");
+  localStorage.removeItem("token");
+};
+</script>
+<style lang=""></style>

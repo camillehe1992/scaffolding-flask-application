@@ -1,12 +1,15 @@
 <template>
-  <hello-world v-if="isLogin" />
-  <login v-else />
+  <hello-world v-if="!isLogin" />
+  <main-content v-else />
 </template>
 
 <script setup>
-import login from "./login.vue";
+import { computed } from "vue";
+import { useStore } from "vuex";
 
-const isLogin = Boolean(localStorage.getItem("isLogin") ?? "false");
+const store = useStore();
+
+const isLogin = localStorage.getItem("isLogin");
 
 //
 </script>
