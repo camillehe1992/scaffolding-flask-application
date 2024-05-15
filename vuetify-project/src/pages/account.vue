@@ -2,13 +2,12 @@
   <v-container>
     <v-row>
       <v-col>
-        <v-card align="center">
+        <v-card align="center" class="mx-auto">
           <template v-slot:prepend>
             <div>
               <v-avatar
                 v-if="user?.avatar"
                 size="72px"
-                color="grey-darken-3"
                 :image="user?.avatar"
               ></v-avatar>
               <v-avatar v-else size="108px" color="cyan-darken-3">
@@ -59,11 +58,7 @@
       </v-col>
       <v-col cols="9">
         <v-card>
-          <v-tabs
-            v-model="tab"
-            align-tabs="center"
-            color="deep-purple-accent-4"
-          >
+          <v-tabs v-model="tab" align-tabs="center">
             <v-tab :value="1">Landscape</v-tab>
             <v-tab :value="2">City</v-tab>
             <v-tab :value="3">Abstract</v-tab>
@@ -133,10 +128,12 @@ onMounted(async () => {
 const token = localStorage.getItem("token");
 
 const fetchUser = async () => {
-  try {
-    return await store.dispatch("user/getUser", { token });
-  } catch (error) {
+  const res = await store.dispatch("user/getUser", { token });
+  if (res?.error) {
+    localStorage.clear();
     router.push({ name: "/login" });
+  } else {
+    return res;
   }
 };
 </script>
