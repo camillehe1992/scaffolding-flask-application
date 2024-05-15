@@ -2,8 +2,8 @@
   <v-container>
     <v-row>
       <v-col>
-        <v-card align="center" class="mx-auto">
-          <template v-slot:prepend>
+        <v-card align="center">
+          <v-card-item>
             <div>
               <v-avatar
                 v-if="user?.avatar"
@@ -14,7 +14,7 @@
                 <v-icon size="72px" icon="mdi-account-circle"></v-icon>
               </v-avatar>
             </div>
-          </template>
+          </v-card-item>
 
           <v-card-title>
             {{ user?.username }}
