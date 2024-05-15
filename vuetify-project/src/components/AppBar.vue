@@ -67,7 +67,6 @@ import { useStore } from "vuex";
 const store = useStore();
 const router = useRouter();
 
-const isLogin = computed(() => store.state.user.isLogin);
 const user = computed(() => store.state.user.currentUser);
 
 const items = [
@@ -80,8 +79,8 @@ const editAccount = () => {
 };
 
 const signout = () => {
-  localStorage.removeItem("isLogin");
-  localStorage.removeItem("token");
+  localStorage.clear();
+  router.push({ name: "/login" });
 };
 </script>
 <style lang=""></style>

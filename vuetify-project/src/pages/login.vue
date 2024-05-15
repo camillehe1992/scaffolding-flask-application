@@ -70,7 +70,7 @@
         </v-btn>
 
         <v-card-text class="text-center">
-          <a class="text-blue text-decoration-none" href="/register">
+          <a class="text-blue text-decoration-none" href="/signup">
             Sign up now <v-icon icon="mdi-chevron-right"></v-icon>
           </a>
         </v-card-text>
