@@ -28,14 +28,14 @@ const actions = {
     try {
       const res = await axios.post(`${url}/login`, payload);
       commit("setCurrentUser", res.data?.user);
-      localStorage.setItem("isLogin", "true");
+      localStorage.setItem("isLoggedIn", "true");
       localStorage.setItem("email", res.data?.user?.email);
       localStorage.setItem("token", res.data?.user?.token);
       return res.data;
     } catch (error) {
       console.error(error.response.data);
       commit("setCurrentUser", null);
-      localStorage.removeItem("isLogin");
+      localStorage.removeItem("isLoggedIn");
       localStorage.removeItem("email");
       localStorage.removeItem("token");
       return error?.response?.data;
@@ -46,10 +46,10 @@ const actions = {
       const res = await axios.post(`${url}/signup`, payload);
       if (res.status == 201 && res.data?.success) {
         commit("setCurrentUser", res.data?.user);
-        localStorage.setItem("isLogin", "true");
+        localStorage.setItem("isLoggedIn", "true");
       } else {
         commit("setCurrentUser", null);
-        localStorage.removeItem("isLogin");
+        localStorage.removeItem("isLoggedIn");
       }
       return res.data;
     } catch (error) {

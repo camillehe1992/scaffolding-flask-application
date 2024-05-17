@@ -1,11 +1,9 @@
 <template>
-  <v-app>
-    <app-bar />
+  <v-layout>
     <v-main>
       <router-view />
     </v-main>
-    <app-footer />
-  </v-app>
+  </v-layout>
 </template>
 
 <script setup>

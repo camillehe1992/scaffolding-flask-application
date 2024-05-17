@@ -28,6 +28,16 @@ Below table shows the main frameworks/tools used in the project.
 
 ## Get Started
 
+### Database
+
+In the project, to simplify the demo, we use Docker to create a `mysql` container in the local machine to save user data. Use below command to create a `mysql` container.
+
+For more information, see <https://hub.docker.com/_/mysql>.
+
+```bash
+docker run --name local-mysql -e MYSQL_ROOT_PASSWORD=mysql123 -d mysql:tag
+```
+
 ### Frontend
 
 In the `vue-app` component, we use `npm` to manage frontend dependencies.

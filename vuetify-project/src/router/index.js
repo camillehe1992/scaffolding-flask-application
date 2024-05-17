@@ -11,12 +11,12 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
 });
 
-router.beforeEach((to, from, next) => {
-  const isLogin = Boolean(localStorage.getItem("isLogin") ?? "false");
-  console.log(`isLogin ${isLogin}`);
-  if (to.name !== "/login" && to.name !== "/register" && !isLogin)
-    next({ name: "/login" });
-  else next();
-});
+// router.beforeEach((to, from, next) => {
+//   const isLoggedIn = Boolean(localStorage.getItem("isLoggedIn") ?? "false");
+//   console.log(`isLoggedIn ${isLoggedIn}`);
+
+//   if (!isLoggedIn) next({ name: "/" });
+//   else next();
+// });
 
 export default router;
