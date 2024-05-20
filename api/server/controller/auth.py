@@ -9,6 +9,7 @@ from server.dao.user import UserDao
 from server.controller.user import User
 from server.utils.otp import OTPGenerator
 from server.utils.smtp import SMTPClient
+from server.utils.token import generate_token, confirm_token
 
 
 def token_required(f):
@@ -90,16 +91,33 @@ class Auth:
                 generate_password_hash(password, method="pbkdf2"),
                 access_token,
             )
+
+            # Confirm account
+            token = generate_token(email)
+            link = f"auth/confirm/{token}"
+            mail_message = {
+                "subject": "Please confirm your email",
+                "body": {"template": "confirm_email", "args": {"confirm_url": link}},
+                "to": email,
+                "text_type": "html",
+            }
+            client = SMTPClient(**mail_message)
+            client.send_email()
+
             response = make_response(
                 {
                     "user_name": username,
                     "email": email,
-                    "access_token": access_token,
+                    "message": "A confirm email is sent out",
                 },
                 201,
             )
 
         return response
+
+    def confirm_token(self, token):
+        email = confirm_token(token)
+        return {"message": "The account is confirmed", "email": email}, 200
 
     def login(self):
         email = request.json.get("email")
@@ -151,7 +169,7 @@ class Auth:
             "body": f"The verification code to your new account is {code}",
             "to": email,
         }
-        client = SMTPClient(**mail_message, debug=False)
+        client = SMTPClient(**mail_message)
         res = client.send_email()
 
         if res:
