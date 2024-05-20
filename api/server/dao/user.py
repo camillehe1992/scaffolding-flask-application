@@ -37,9 +37,9 @@ class UserDao:
             print(f"Error: {e}")
             raise e
 
-    def insert(self, user_id, username, email, password):
-        query = "INSERT INTO user (user_id, username, email, password) VALUES (%s, %s, %s, %s)"
-        values = (user_id, username, email, password)
+    def insert(self, user_id, username, email, password, access_token):
+        query = "INSERT INTO user (user_id, username, email, password, access_token) VALUES (%s, %s, %s, %s, %s)"
+        values = (user_id, username, email, password, access_token)
         self.execute_query(query, values)
 
     def update(self, user_id, username, password):
@@ -69,4 +69,28 @@ class UserDao:
     def get_uesr_by_email(self, email):
         query = "SELECT * FROM user WHERE email = %s"
         values = (email,)
+        return self.execute_query(query, values)
+
+    def update_username(self, user_id, username):
+        query = "UPDATE user SET username = %s WHERE user_id = %s"
+        values = (
+            username,
+            user_id,
+        )
+        return self.execute_query(query, values)
+
+    def update_password(self, user_id, password):
+        query = "UPDATE user SET password = %s WHERE user_id = %s"
+        values = (
+            password,
+            user_id,
+        )
+        return self.execute_query(query, values)
+
+    def refresh_token(self, user_id, token):
+        query = "UPDATE user SET access_token = %s WHERE user_id = %s"
+        values = (
+            token,
+            user_id,
+        )
         return self.execute_query(query, values)
